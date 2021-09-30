@@ -11,7 +11,8 @@ namespace SudoguruMainBackend.Controllers
     [Route("[controller]")]
     public class SudokuController : Controller
     {
-        public IActionResult Index([FromBody] SudokuBoard.SudokuBoard board)
+        [HttpPost]
+        public IActionResult Basiccheck([FromBody] SudokuBoard.SudokuBoard board)
         {
             FactoryAlgorithm.GenerateAlgorithmCheckSudoku factory = new FactoryAlgorithm.GenerateAlgorithmCheckSudoku();
             var sudokuCheck = factory.GetCheckAlgorithme;

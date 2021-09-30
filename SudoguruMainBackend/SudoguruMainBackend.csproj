@@ -4,5 +4,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FactoryAlgorithm\FactoryAlgorithm.csproj" />
+    <ProjectReference Include="..\ISudokuCheckAlgoritme\ISudokuCheckAlgoritme.csproj" />
+    <ProjectReference Include="..\SudokuBoard\SudokuBoard.csproj" />
+  </ItemGroup>
+
 
 </Project>

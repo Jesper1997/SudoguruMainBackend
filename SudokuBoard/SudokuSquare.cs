@@ -11,5 +11,6 @@ namespace SudokuBoard
         public int y { get; set; }
         public int value { get; set; }
         public bool Correct { get; set; } = true;
+        public List<int> PossibleNumbers { get; set; } = new List<int>();
     }
 }

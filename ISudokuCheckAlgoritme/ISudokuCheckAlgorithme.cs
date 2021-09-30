@@ -7,6 +7,6 @@ namespace ISudokuCheckAlgoritme
 {
     public interface ISudokuCheckAlgorithme
     {
-        public ISudokuCheckAlgoritme.ISudokuCheckAlgorithme SudokuSetUpForControlle(SudokuBoard.SudokuBoard board);
+        public SudokuBoard.SudokuBoard SudokuSetUpForControlle(SudokuBoard.SudokuBoard board);
     }
 }
