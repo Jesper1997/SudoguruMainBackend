@@ -12,29 +12,43 @@ namespace SudokuControlAlgorithme
         List<int> NeededNumbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         public SudokuBoard.SudokuBoard CreateSolution(SudokuBoard.SudokuBoard board)
         {
-            int centerPointX = 1;
-            int centerPointY = 1;
             foreach (SudokuSquare square in board.sudokuSquares)
             {
-                //Get All impossiblePossible Numbers
-                var NotPossibleNumbers = GetAllRowvalues(board, square);
-                NotPossibleNumbers.AddRange(GetAllColumnValues(board, square));
-                if (square.x == centerPointX && square.y == centerPointY)
+                if (square.value == 0)
                 {
-                    NotPossibleNumbers = GetAllSquareValues(board, square);
-                    centerPointX = centerPointX + 3;
-                    if(centerPointX > 8)
-                    {
-                        centerPointY = centerPointY + 3;
-                        centerPointX = 1;
-                    }
+                    GeneratePossibleNumbers(board, square);
                 }
-                //Generate All possible values for that square
-                generatepossibleValue(NotPossibleNumbers, square);
             }
             // start inserting values into the square until they are all filled in
             InsertValue(board);
             return board;
+        }
+
+        private void GeneratePossibleNumbers(SudokuBoard.SudokuBoard board, SudokuSquare square)
+        {
+            square.PossibleNumbers.Clear();
+            var NotPossibleNumbers = GetAllRowvalues(board, square);
+            NotPossibleNumbers.AddRange(GetAllColumnValues(board, square));
+            NotPossibleNumbers.AddRange(GetAllSquareValues(board, Determinecenterpoint(square.x), Determinecenterpoint(square.y)));
+            //Generate All possible values for that square
+            generatepossibleValue(NotPossibleNumbers, square);
+        }
+
+        private int Determinecenterpoint(int point)
+        {
+            if(point < 3)
+            {
+                return 1;
+            }
+            if(point > 2 && point < 6)
+            {
+                return 4;
+            }
+            if(point > 5)
+            {
+                return 7;
+            }
+            return 0;
         }
 
         //Creates a row and extracts all value from that row as those numbers are impossible for that square
@@ -52,12 +66,32 @@ namespace SudokuControlAlgorithme
         }
 
         // create a big square(3X3) and extract all impossible numbers from that big square
-        private List<int> GetAllSquareValues (SudokuBoard.SudokuBoard board, SudokuSquare baseSquare)
+        private List<int> GetAllSquareValues (SudokuBoard.SudokuBoard board, /*SudokuSquare baseSquare*/int x, int y)
         {
-            var squares = board.sudokuSquares.Where(square => square.x == baseSquare.x - 1 || square.x == baseSquare.x || square.x == baseSquare.x + 1).ToArray();
-            squares = squares.Where(square => square.y == baseSquare.y - 1 || square.y == baseSquare.y || square.y == baseSquare.y + 1).ToArray();
+            SudokuSquare[] squares = CreateSquare(board, x, y);
             return ExtractNumnbersFromArray(squares);
 
+        }
+
+        private static SudokuSquare[] CreateSquare(SudokuBoard.SudokuBoard board, int x, int y)
+        {
+            var squares = board.sudokuSquares.Where(square => square.x == x - 1 || square.x == x || square.x == x + 1).ToArray();
+            squares = squares.Where(square => square.y == y - 1 || square.y == y || square.y == y + 1).ToArray();
+            return squares;
+        }
+
+        //Exctract value from all the squares and add that to the impossible list for that square
+        private List<int> ExtractNumnbersFromArray(SudokuSquare[] squares)
+        {
+            List<int> Numbers = new List<int>();
+            for (int x = 0; x < squares.Length; x++)
+            {
+                if (squares[x].value != 0)
+                {
+                    Numbers.Add(squares[x].value);
+                }
+            }
+            return Numbers;
         }
 
         //Generate a list of possible numbers for that square
@@ -74,36 +108,32 @@ namespace SudokuControlAlgorithme
                     square.PossibleNumbers.Add(number);
                 }
             }
-
-            if(square.PossibleNumbers.Count == 1)
-            {
-                square.value = square.PossibleNumbers[0];
-            }
-        }
-
-        //Exctract value from all the squares and add that to the impossible list for that square
-        private List<int> ExtractNumnbersFromArray(SudokuSquare[] squares)
-        {
-            List<int> Numbers = new List<int>();
-            for(int x = 0; x < squares.Length; x++)
-            {
-                if(squares[x].value != 0)
-                {
-                    Numbers.Add(squares[x].value);
-                }
-            }
-            return Numbers;
         }
 
         //Inserts value for all squares until all squares are filled
         private void InsertValue(SudokuBoard.SudokuBoard board)
         {
             int totalFilledsquares = 0;
+            //int oldtotalFilledsquares = 0;
+            //bool refreshpossiblenumbers = false;
             while (totalFilledsquares < board.sudokuSquares.Length)
             {
+                //if(totalFilledsquares == oldtotalFilledsquares)
+                //{
+                //    refreshpossiblenumbers = true;
+                //}
+                //else
+                //{
+                //    refreshpossiblenumbers = false;
+                //}
+                //oldtotalFilledsquares = totalFilledsquares;
                 totalFilledsquares = 0;
                 foreach (SudokuSquare square in board.sudokuSquares)
                 {
+                    //if (refreshpossiblenumbers)
+                    //{
+                    //    GeneratePossibleNumbers(board, square);
+                    //}
                     if (square.value != 0)
                     {
                         totalFilledsquares++;
@@ -119,15 +149,17 @@ namespace SudokuControlAlgorithme
         }
 
         //Removes possible value after it was filled in a square
-        private void RemovePosibleNumber(SudokuBoard.SudokuBoard board, SudokuSquare square)
+        private void RemovePosibleNumber(SudokuBoard.SudokuBoard board, SudokuSquare filledsquare)
         {
-            List<SudokuSquare> squaresremovepossiblevalue = board.sudokuSquares.Where(square => square.x == square.x).ToList();
-            squaresremovepossiblevalue.AddRange(board.sudokuSquares.Where(square => square.y == square.y).ToList());
+
+            List<SudokuSquare> squaresremovepossiblevalue = CreateSquare(board, Determinecenterpoint(filledsquare.x), Determinecenterpoint(filledsquare.y)).ToList();
+            squaresremovepossiblevalue.AddRange(board.sudokuSquares.Where(square => square.x == filledsquare.x).ToList());
+            squaresremovepossiblevalue.AddRange(board.sudokuSquares.Where(square => square.y == filledsquare.y).ToList());
             foreach(SudokuSquare sudokuSquare in squaresremovepossiblevalue)
             {
-                if(sudokuSquare.PossibleNumbers.Contains(square.value))
+                if(sudokuSquare.PossibleNumbers.Contains(filledsquare.value))
                 {
-                    sudokuSquare.PossibleNumbers.RemoveAll(x => x == square.value);
+                    sudokuSquare.PossibleNumbers.RemoveAll(x => x == filledsquare.value);
                 }
             }
         }
