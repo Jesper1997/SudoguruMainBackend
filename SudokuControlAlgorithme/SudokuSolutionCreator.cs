@@ -114,26 +114,11 @@ namespace SudokuControlAlgorithme
         private void InsertValue(SudokuBoard.SudokuBoard board)
         {
             int totalFilledsquares = 0;
-            //int oldtotalFilledsquares = 0;
-            //bool refreshpossiblenumbers = false;
             while (totalFilledsquares < board.sudokuSquares.Length)
             {
-                //if(totalFilledsquares == oldtotalFilledsquares)
-                //{
-                //    refreshpossiblenumbers = true;
-                //}
-                //else
-                //{
-                //    refreshpossiblenumbers = false;
-                //}
-                //oldtotalFilledsquares = totalFilledsquares;
                 totalFilledsquares = 0;
                 foreach (SudokuSquare square in board.sudokuSquares)
                 {
-                    //if (refreshpossiblenumbers)
-                    //{
-                    //    GeneratePossibleNumbers(board, square);
-                    //}
                     if (square.value != 0)
                     {
                         totalFilledsquares++;
