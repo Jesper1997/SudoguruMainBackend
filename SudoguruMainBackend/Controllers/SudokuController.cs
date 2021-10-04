@@ -14,11 +14,21 @@ namespace SudoguruMainBackend.Controllers
         [HttpPost]
         public IActionResult Basiccheck([FromBody] SudokuBoard.SudokuBoard board)
         {
-            FactoryAlgorithm.GenerateAlgorithmCheckSudoku factory = new FactoryAlgorithm.GenerateAlgorithmCheckSudoku();
+            GenerateAlgorithmCheckSudoku factory = new GenerateAlgorithmCheckSudoku();
             var sudokuCheck = factory.GetCheckAlgorithme;
             sudokuCheck.SudokuSetUpForControlle(board);
             
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateSolution([FromBody] SudokuBoard.SudokuBoard board)
+        {
+            SudokuSolutionCreatorFactory factory = new SudokuSolutionCreatorFactory();
+            var sudokuSulutionCreator = factory.GetCheckAlgorithme;
+            sudokuSulutionCreator.CreateSolution(board);
+
+            return Ok(sudokuSulutionCreator.CreateSolution(board));
         }
     }
 }

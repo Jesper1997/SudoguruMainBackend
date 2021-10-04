@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SudokuBoard;
+using ISudokuCheckAlgoritme;
 
 namespace SudokuControlAlgorithme
 {
-    public class SudokuSolutionCreator
+    public class SudokuSolutionCreator : ISudokuSolutionCreator
     {
 
         List<int> NeededNumbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -113,9 +114,15 @@ namespace SudokuControlAlgorithme
         //Inserts value for all squares until all squares are filled
         private void InsertValue(SudokuBoard.SudokuBoard board)
         {
+            int index = 0;
             int totalFilledsquares = 0;
+            int oldTotalFilledSquares = 0;
+            bool forced = false;
+            bool Nopossiblenumbers = false;
+            SudokuSquare[] BackUpBoard = new SudokuSquare[81];
             while (totalFilledsquares < board.sudokuSquares.Length)
             {
+                oldTotalFilledSquares = totalFilledsquares;
                 totalFilledsquares = 0;
                 foreach (SudokuSquare square in board.sudokuSquares)
                 {
@@ -129,8 +136,51 @@ namespace SudokuControlAlgorithme
                         RemovePosibleNumber(board, square);
                         totalFilledsquares++;
                     }
+                    else if(square.PossibleNumbers.Count == 0)
+                    {
+                        ResetBoard(board, BackUpBoard);
+                        ForceInsertnumber(board, ref index, ref totalFilledsquares, Nopossiblenumbers);
+                        Nopossiblenumbers = true;
+                        break;
+                    }
+                }
+                if (totalFilledsquares == oldTotalFilledSquares)
+                {
+                    if(!forced)
+                    {
+                        BackUpBoard = board.sudokuSquares.Select(a => (SudokuSquare)a.Clone()).ToArray();
+                    }
+                    ForceInsertnumber(board, ref index, ref totalFilledsquares, Nopossiblenumbers);
+                }
+                else
+                {
+                    index = 0;
                 }
             }
+        }
+
+        private void ForceInsertnumber(SudokuBoard.SudokuBoard board, ref int index, ref int totalFilledsquares, bool Nopossiblenumbers)
+        {
+            if (Nopossiblenumbers)
+            {
+                index++;
+            }
+            foreach (SudokuSquare square in board.sudokuSquares)
+            {
+                if (square.PossibleNumbers.Count == 2)
+                {
+                    square.value = square.PossibleNumbers[index];
+                    RemovePosibleNumber(board, square);
+                    totalFilledsquares++;
+                    Nopossiblenumbers = false;
+                    break;
+                }
+            }
+        }
+
+        private void ResetBoard(SudokuBoard.SudokuBoard board, SudokuSquare[] backUpBoard)
+        {
+            board.sudokuSquares = backUpBoard.Select(a => (SudokuSquare)a.Clone()).ToArray();
         }
 
         //Removes possible value after it was filled in a square
