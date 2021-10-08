@@ -112,6 +112,7 @@ namespace SudokuControlAlgorithme
         }
 
         //Inserts value for all squares until all squares are filled
+        //InsertValue can be done better by doing it on base of square instead looping through the board.
         private void InsertValue(SudokuBoard.SudokuBoard board)
         {
             int index = 0;
