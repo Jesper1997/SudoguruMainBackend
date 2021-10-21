@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EFMyDBContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace SudoguruMainBackend
 {
@@ -25,6 +27,9 @@ namespace SudoguruMainBackend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContextPool<DBContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+
             services.AddCors(option =>
             {
                 option.AddPolicy("CorsPolicy",
@@ -39,6 +44,10 @@ namespace SudoguruMainBackend
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //using (var scope = app.ApplicationServices.CreateScope())
+            //using (var context = scope.ServiceProvider.GetService<DBContext>())
+            //    context.Database.EnsureCreated();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

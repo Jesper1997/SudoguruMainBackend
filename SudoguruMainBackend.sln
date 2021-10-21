@@ -15,9 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SudokuBoard", "SudokuBoard\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlgorithmCheckBoardTest", "AlgorithmCheckBoardTest\AlgorithmCheckBoardTest.csproj", "{3C110C9A-57A3-4562-8190-46836658C285}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISudokuCheckAlgoritme", "ISudokuCheckAlgoritme\ISudokuCheckAlgoritme.csproj", "{F4926C11-6C04-45CF-A4D9-2101F2636D0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISudokuCheckAlgoritme", "ISudokuCheckAlgoritme\ISudokuCheckAlgoritme.csproj", "{F4926C11-6C04-45CF-A4D9-2101F2636D0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactoryAlgorithm", "FactoryAlgorithm\FactoryAlgorithm.csproj", "{6470E2F7-32FE-473F-86B6-225E756D71FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FactoryAlgorithm", "FactoryAlgorithm\FactoryAlgorithm.csproj", "{6470E2F7-32FE-473F-86B6-225E756D71FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EFDBContext", "EFDBContext", "{EE018EB6-347D-4049-9238-9742830C39C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFMyDBContext", "EFMyDBContext\EFMyDBContext.csproj", "{40DD497E-ACA4-4A6F-85FE-C875D140D04A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,10 @@ Global
 		{6470E2F7-32FE-473F-86B6-225E756D71FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6470E2F7-32FE-473F-86B6-225E756D71FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6470E2F7-32FE-473F-86B6-225E756D71FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40DD497E-ACA4-4A6F-85FE-C875D140D04A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40DD497E-ACA4-4A6F-85FE-C875D140D04A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40DD497E-ACA4-4A6F-85FE-C875D140D04A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40DD497E-ACA4-4A6F-85FE-C875D140D04A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +67,7 @@ Global
 		{3C110C9A-57A3-4562-8190-46836658C285} = {4C161FF7-E00D-4B10-A2D4-7F9BCF6B5769}
 		{F4926C11-6C04-45CF-A4D9-2101F2636D0F} = {4C161FF7-E00D-4B10-A2D4-7F9BCF6B5769}
 		{6470E2F7-32FE-473F-86B6-225E756D71FB} = {4C161FF7-E00D-4B10-A2D4-7F9BCF6B5769}
+		{40DD497E-ACA4-4A6F-85FE-C875D140D04A} = {EE018EB6-347D-4049-9238-9742830C39C6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5856183A-4516-427D-AA0C-708C59CE3B15}
