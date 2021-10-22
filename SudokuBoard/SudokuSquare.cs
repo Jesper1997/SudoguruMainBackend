@@ -1,17 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace SudokuBoard
 {
     public class SudokuSquare : ICloneable
     {
+
         public int id { get; set; }
-        public int BoardId { get; set; }
+        [JsonIgnore]
+        public int SudokuBoardId { get; set; }
+        [JsonIgnore]
+        public SudokuBoard SudokuBoard { get; set; }
         public int x { get; set; }
         public int y { get; set; }
         public int value { get; set; }
+        [NotMapped]
         public bool Correct { get; set; } = true;
+        [NotMapped]
         public List<int> PossibleNumbers { get; set; } = new List<int>();
 
         public object Clone()

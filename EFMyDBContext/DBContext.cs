@@ -11,7 +11,7 @@ namespace EFMyDBContext
 
         public DBContext (DbContextOptions<DBContext> options) : base (options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         protected override void  OnModelCreating(ModelBuilder modelBuilder)
@@ -22,21 +22,19 @@ namespace EFMyDBContext
 
             //Configure PK
             modelBuilder.Entity<SudokuBoard.SudokuBoard>().HasKey(sb => sb.Id).HasName("PK_Board");
-            modelBuilder.Entity<SudokuSquare>().HasKey(table => new { table.id, table.BoardId }).HasName("PKSquare");
+            modelBuilder.Entity<SudokuSquare>().HasKey(table => new { table.id, table.SudokuBoardId }).HasName("PK_Square");
 
             //Configure Indexes
 
             //Configure Columns
             //SudokuBoard
-            modelBuilder.Entity<SudokuBoard.SudokuBoard>().Property(sb => sb.Id).UseMySqlIdentityColumn().IsRequired();
+            //modelBuilder.Entity<SudokuBoard.SudokuBoard>().Property(sb => sb.Id).UseMySqlIdentityColumn().IsRequired();
 
-            modelBuilder.Entity<SudokuSquare>().Property(s => s.id).UseMySqlIdentityColumn().IsRequired();
-            modelBuilder.Entity<SudokuSquare>().Property(s => s.x).IsRequired();
-            modelBuilder.Entity<SudokuSquare>().Property(s => s.y).IsRequired();
-            modelBuilder.Entity<SudokuSquare>().Property(s => s.value).IsRequired();
-            modelBuilder.Entity<SudokuSquare>().Property(s => s.BoardId).IsRequired();
-
-
+            //modelBuilder.Entity<SudokuSquare>().Property(s => s.id).UseMySqlIdentityColumn().IsRequired();
+            //modelBuilder.Entity<SudokuSquare>().Property(s => s.x).IsRequired();
+            //modelBuilder.Entity<SudokuSquare>().Property(s => s.y).IsRequired();
+            //modelBuilder.Entity<SudokuSquare>().Property(s => s.value).IsRequired();
+            //modelBuilder.Entity<SudokuSquare>().Property(s => s.BoardId).IsRequired();
 
         }
     }

@@ -43,9 +43,9 @@ namespace SudoguruMainBackend
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //using (var scope = app.ApplicationServices.CreateScope())
-            //using (var context = scope.ServiceProvider.GetService<DBContext>())
-            //    context.Database.EnsureCreated();
+            using (var scope = app.ApplicationServices.CreateScope())
+            using (var context = scope.ServiceProvider.GetService<DBContext>())
+                context.Database.EnsureCreated();
 
             if (env.IsDevelopment())
             {
