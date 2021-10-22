@@ -37,7 +37,6 @@ namespace SudoguruMainBackend
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
-
             services.AddControllers();
         }
 
