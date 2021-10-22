@@ -21,7 +21,6 @@ namespace EFMyDBContext
             modelBuilder.Entity<SudokuSquare>().ToTable("Squares");
 
             //Configure PK
-            modelBuilder.Entity<SudokuBoard.SudokuBoard>().HasKey(sb => sb.Id).HasName("PK_Board");
             modelBuilder.Entity<SudokuSquare>().HasKey(table => new { table.id, table.SudokuBoardId }).HasName("PK_Square");
 
             //Configure Indexes

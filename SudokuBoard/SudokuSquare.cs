@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -11,10 +12,14 @@ namespace SudokuBoard
 
         public int id { get; set; }
         [JsonIgnore]
+        [Required]
         public int SudokuBoardId { get; set; }
         [JsonIgnore]
+        [Required]
         public SudokuBoard SudokuBoard { get; set; }
+        [Required]
         public int x { get; set; }
+        [Required]
         public int y { get; set; }
         public int value { get; set; }
         [NotMapped]

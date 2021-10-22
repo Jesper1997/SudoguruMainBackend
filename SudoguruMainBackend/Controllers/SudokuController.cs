@@ -45,13 +45,17 @@ namespace SudoguruMainBackend.Controllers
                 SudokuSolutionCreatorFactory factory = new SudokuSolutionCreatorFactory();
                 var sudokuSulutionCreator = factory.GetCheckAlgorithme;
                 SudokuBoard.SudokuBoard board = BoardConverter(receivedboard);
+
+                //DALSudoku.DalSudoku save = new DALSudoku.DalSudoku();
+                //save.SaveSudoku(board);
+
                 sudokuSulutionCreator.CreateSolution(board);
                 return Ok(sudokuSulutionCreator.CreateSolution(board));
             }
             catch { return new BadRequestObjectResult(415); }
         }
 
-        private static SudokuBoard.SudokuBoard BoardConverter(BoardViewModel receivedboard)
+        private SudokuBoard.SudokuBoard BoardConverter(BoardViewModel receivedboard)
         {
             List<SudokuBoard.SudokuSquare> squares = new List<SudokuBoard.SudokuSquare>();
             SudokuBoard.SudokuBoard board = new SudokuBoard.SudokuBoard();
