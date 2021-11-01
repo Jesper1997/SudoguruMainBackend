@@ -5,13 +5,16 @@ namespace DALSudoku
 {
     public class DalSudoku
     {
+        private readonly DBContext context;
+
+        public DalSudoku(DBContext dB)
+        {
+            context = dB;
+        }
         public void SaveSudoku (SudokuBoard.SudokuBoard board)
         {
-            using(var context = new DBContext())
-            {
-                context.sudokuBoards.Add(board);
-                context.SaveChanges();
-            }
+            context.sudokuBoards.Add(board);
+            context.SaveChanges();
         }
     }
 }

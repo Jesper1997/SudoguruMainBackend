@@ -105,7 +105,7 @@ namespace AlgorithmCheckBoardTest
                 new SudokuSquare{ x = 6, y = 8, value = 3 },
                 new SudokuSquare{ x = 7, y = 8, value = 5 },
                 new SudokuSquare{ x = 8, y = 8, value = 7 }
-            }.ToArray();
+            };
 
             SudokuSolutionCreator sudoku = new SudokuSolutionCreator();
             SudokuAlgorithm Checkforduplicates = new SudokuAlgorithm();
@@ -225,7 +225,7 @@ namespace AlgorithmCheckBoardTest
                 new SudokuSquare{ x = 6, y = 8, value = 0 },
                 new SudokuSquare{ x = 7, y = 8, value = 8 },
                 new SudokuSquare{ x = 8, y = 8, value = 0 }
-            }.ToArray();
+            };
 
             SudokuSolutionCreator sudoku = new SudokuSolutionCreator();
             SudokuAlgorithm Checkforduplicates = new SudokuAlgorithm();
@@ -344,7 +344,7 @@ namespace AlgorithmCheckBoardTest
                 new SudokuSquare{ x = 6, y = 8, value = 1 },
                 new SudokuSquare{ x = 7, y = 8, value = 0 },
                 new SudokuSquare{ x = 8, y = 8, value = 0 }
-            }.ToArray();
+            };
 
             SudokuSolutionCreator sudoku = new SudokuSolutionCreator();
             SudokuAlgorithm Checkforduplicates = new SudokuAlgorithm();

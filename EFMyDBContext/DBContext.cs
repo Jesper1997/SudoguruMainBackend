@@ -21,7 +21,7 @@ namespace EFMyDBContext
             modelBuilder.Entity<SudokuSquare>().ToTable("Squares");
 
             //Configure PK
-            modelBuilder.Entity<SudokuSquare>().HasKey(table => new { table.id, table.SudokuBoardId }).HasName("PK_Square");
+            //modelBuilder.Entity<SudokuSquare>().HasKey(table => new { table.id, table.SudokuBoardId }).HasName("PK_Square");
 
             //Configure Indexes
 
@@ -34,6 +34,8 @@ namespace EFMyDBContext
             //modelBuilder.Entity<SudokuSquare>().Property(s => s.y).IsRequired();
             //modelBuilder.Entity<SudokuSquare>().Property(s => s.value).IsRequired();
             //modelBuilder.Entity<SudokuSquare>().Property(s => s.BoardId).IsRequired();
+
+            base.OnModelCreating(modelBuilder);
 
         }
     }

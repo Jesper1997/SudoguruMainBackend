@@ -9,8 +9,11 @@ namespace SudokuBoard
 {
     public class SudokuSquare : ICloneable
     {
-
+        [JsonIgnore]
+        [Key]
         public int id { get; set; }
+        [Required]
+        public int SquareId{ get; set; }
         [JsonIgnore]
         [Required]
         public int SudokuBoardId { get; set; }
@@ -32,6 +35,7 @@ namespace SudokuBoard
             SudokuSquare square = new SudokuSquare
             {
                 id = this.id,
+                SquareId = this.SquareId,
                 x = this.x,
                 y = this.y,
                 value = this.value,

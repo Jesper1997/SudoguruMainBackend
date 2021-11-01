@@ -24,7 +24,7 @@ namespace AlgorithmCheckBoardTest
                     new SudokuSquare { x = 9, y = 5, value = 9 },
                     new SudokuSquare { x = 5, y = 9, value = 9 },
                     new SudokuSquare { x = 6, y = 5, value = 9 }
-                }.ToArray()
+                }
             };
 
 
@@ -49,7 +49,7 @@ namespace AlgorithmCheckBoardTest
                     new SudokuSquare { x = 0, y = 2, value = 6 },
                     new SudokuSquare { x = 1, y = 2, value = 7 },
                     new SudokuSquare { x = 2, y = 2, value = 9}
-                }.ToArray()
+                }
             };
             sudoku.SudokuSetUpForControlle(board);
             foreach(SudokuSquare square in board.sudokuSquares)
@@ -81,7 +81,7 @@ namespace AlgorithmCheckBoardTest
                     new SudokuSquare { x = 0, y = 2, value = 6 },
                     new SudokuSquare { x = 1, y = 2, value = 7 },
                     new SudokuSquare { x = 2, y = 2, value = 9}
-                }.ToArray()
+                }
             };
             sudoku.SudokuSetUpForControlle(board);
             foreach (SudokuSquare square in board.sudokuSquares)

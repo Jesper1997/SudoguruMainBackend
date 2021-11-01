@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SudokuBoard
@@ -7,6 +8,6 @@ namespace SudokuBoard
     {
         [Key]
         public int Id { get; set; }
-        public SudokuSquare[] sudokuSquares { get; set; }
+        public List<SudokuSquare> sudokuSquares { get; set; }
     }
 }

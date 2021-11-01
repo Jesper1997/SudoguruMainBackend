@@ -13,6 +13,13 @@ namespace SudoguruMainBackend.Controllers
     [Route("[controller]")]
     public class SudokuController : Controller
     {
+        private readonly DALSudoku.DalSudoku dal;
+
+        public SudokuController(DALSudoku.DalSudoku dal)
+        {
+            this.dal = dal;
+        }
+
         [HttpPost]
         [Route("BasicCheck")]
         public IActionResult BasicCheck([FromBody] BoardViewModel receivedboard)
@@ -40,20 +47,21 @@ namespace SudoguruMainBackend.Controllers
             {
                 return new BadRequestObjectResult(415);
             }
-            try
-            {
+            //try
+            //{
                 SudokuSolutionCreatorFactory factory = new SudokuSolutionCreatorFactory();
                 var sudokuSulutionCreator = factory.GetCheckAlgorithme;
                 SudokuBoard.SudokuBoard board = BoardConverter(receivedboard);
 
-                //DALSudoku.DalSudoku save = new DALSudoku.DalSudoku();
-                //save.SaveSudoku(board);
+                dal.SaveSudoku(board);
 
                 sudokuSulutionCreator.CreateSolution(board);
+
                 return Ok(sudokuSulutionCreator.CreateSolution(board));
-            }
-            catch { return new BadRequestObjectResult(415); }
+            //}
+            //catch { return new BadRequestObjectResult(415); }
         }
+
 
         private SudokuBoard.SudokuBoard BoardConverter(BoardViewModel receivedboard)
         {
@@ -65,12 +73,12 @@ namespace SudoguruMainBackend.Controllers
                 {
                     x = receivedboard.squares[x].x,
                     y = receivedboard.squares[x].y,
-                    id = receivedboard.squares[x].id,
+                    SquareId = receivedboard.squares[x].id,
                     value = receivedboard.squares[x].value
                 };
                 squares.Add(sudokuSquare);
             }
-            board.sudokuSquares = squares.ToArray();
+            board.sudokuSquares = squares;
             return board;
         }
     }

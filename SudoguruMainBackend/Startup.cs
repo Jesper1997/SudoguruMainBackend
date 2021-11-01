@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EFMyDBContext;
+using DALSudoku;
 using Microsoft.EntityFrameworkCore;
 
 namespace SudoguruMainBackend
@@ -30,6 +31,8 @@ namespace SudoguruMainBackend
             string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContextPool<DBContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
 
+            //services.AddEntityFrameworkMySql().AddDbContextPool<DBContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+
             services.AddCors(option =>
             {
                 option.AddPolicy("CorsPolicy",
@@ -37,6 +40,8 @@ namespace SudoguruMainBackend
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             });
+
+            services.AddScoped(typeof(DalSudoku), typeof(DalSudoku));
             services.AddControllers();
         }
 

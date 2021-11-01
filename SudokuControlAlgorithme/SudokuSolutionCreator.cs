@@ -121,7 +121,7 @@ namespace SudokuControlAlgorithme
             bool forced = false;
             bool Nopossiblenumbers = false;
             SudokuSquare[] BackUpBoard = new SudokuSquare[81];
-            while (totalFilledsquares < board.sudokuSquares.Length)
+            while (totalFilledsquares < board.sudokuSquares.Count)
             {
                 oldTotalFilledSquares = totalFilledsquares;
                 totalFilledsquares = 0;
@@ -181,7 +181,7 @@ namespace SudokuControlAlgorithme
 
         private void ResetBoard(SudokuBoard.SudokuBoard board, SudokuSquare[] backUpBoard)
         {
-            board.sudokuSquares = backUpBoard.Select(a => (SudokuSquare)a.Clone()).ToArray();
+            board.sudokuSquares = backUpBoard.Select(a => (SudokuSquare)a.Clone()).ToList();
         }
 
         //Removes possible value after it was filled in a square
