@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 using FactoryAlgorithm;
 using System.Net.Http;
 using SudoguruMainBackend.ViewModels;
+using SudoguruMainBackend.Converter;
 
 namespace SudoguruMainBackend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class SudokuController : Controller
+    public class SolutionController : Controller
     {
-        private readonly DALSudoku.DalSudoku dal;
+        private readonly ISudokuConverter converter;
 
-        public SudokuController(DALSudoku.DalSudoku dal)
+        public SolutionController(ISudokuConverter converter)
         {
-            this.dal = dal;
+            this.converter = converter;
         }
 
         [HttpPost]
@@ -28,7 +29,7 @@ namespace SudoguruMainBackend.Controllers
             {
                 GenerateAlgorithmCheckSudoku factory = new GenerateAlgorithmCheckSudoku();
                 var sudokuCheck = factory.GetCheckAlgorithme;
-                SudokuBoard.SudokuBoard board = BoardConverter(receivedboard);
+                SudokuBoard.SudokuBoard board = converter.BoardConverter(receivedboard);
                 sudokuCheck.SudokuSetUpForControlle(board);
 
                 return Ok(sudokuCheck.SudokuSetUpForControlle(board));
@@ -47,39 +48,21 @@ namespace SudoguruMainBackend.Controllers
             {
                 return new BadRequestObjectResult(415);
             }
-            //try
-            //{
+            try
+            {
                 SudokuSolutionCreatorFactory factory = new SudokuSolutionCreatorFactory();
                 var sudokuSulutionCreator = factory.GetCheckAlgorithme;
-                SudokuBoard.SudokuBoard board = BoardConverter(receivedboard);
-
-                dal.SaveSudoku(board);
+                SudokuBoard.SudokuBoard board = converter.BoardConverter(receivedboard);
+                //dal.SaveSudoku(board);
 
                 sudokuSulutionCreator.CreateSolution(board);
 
                 return Ok(sudokuSulutionCreator.CreateSolution(board));
-            //}
-            //catch { return new BadRequestObjectResult(415); }
-        }
-
-
-        private SudokuBoard.SudokuBoard BoardConverter(BoardViewModel receivedboard)
-        {
-            List<SudokuBoard.SudokuSquare> squares = new List<SudokuBoard.SudokuSquare>();
-            SudokuBoard.SudokuBoard board = new SudokuBoard.SudokuBoard();
-            for (int x = 0; x < receivedboard.squares.Length; x++)
-            {
-                SudokuBoard.SudokuSquare sudokuSquare = new SudokuBoard.SudokuSquare
-                {
-                    x = receivedboard.squares[x].x,
-                    y = receivedboard.squares[x].y,
-                    SquareId = receivedboard.squares[x].id,
-                    value = receivedboard.squares[x].value
-                };
-                squares.Add(sudokuSquare);
             }
-            board.sudokuSquares = squares;
-            return board;
+            catch { return new BadRequestObjectResult(415);}
         }
+
+
+
     }
 }

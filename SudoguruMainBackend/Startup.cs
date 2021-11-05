@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using EFMyDBContext;
 using DALSudoku;
 using Microsoft.EntityFrameworkCore;
+using SudoguruMainBackend.Converter;
+using IDAlSudoku;
 
 namespace SudoguruMainBackend
 {
@@ -41,7 +43,8 @@ namespace SudoguruMainBackend
                     .AllowAnyHeader());
             });
 
-            services.AddScoped(typeof(DalSudoku), typeof(DalSudoku));
+            services.AddScoped<DalSudoku,DalSudoku>();
+            services.AddScoped<ISudokuConverter,SudokuConverter>();
             services.AddControllers();
         }
 

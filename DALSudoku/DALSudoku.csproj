@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EFMyDBContext\EFMyDBContext.csproj" />
+    <ProjectReference Include="..\IDAlSudoku\IDAlSudoku.csproj" />
     <ProjectReference Include="..\SudokuBoard\SudokuBoard.csproj" />
   </ItemGroup>
 
